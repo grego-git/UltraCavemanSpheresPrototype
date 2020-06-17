@@ -29,3 +29,6 @@ YouTube Channel: https://www.youtube.com/channel/UCpMEl3fMadASxtf1keCHYww </br>
 Twitter: https://twitter.com/GregoGamesUTube </br>
 Instagram: https://www.instagram.com/gregogamesutube/ </br>
 Itch.io: https://grego-games.itch.io/ </br>
+
+## License:
+This project is under the [MIT License](LICENSE)
