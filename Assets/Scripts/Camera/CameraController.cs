@@ -19,6 +19,9 @@ public class CameraController : MonoBehaviour
     private float verticalTilt;
 
     private float initialXRotation;
+    
+    [SerializeField]
+    private LayerMask whatIsEnvironment;
 
     [SerializeField]
     private float spiralTimer;
@@ -161,8 +164,19 @@ public class CameraController : MonoBehaviour
         // Limit speedFactor to be between 1 and 2
         transform.Rotate(Vector3.up, rotateAngle * Mathf.Clamp(speedFactor, 1.0f, 2.0f) * Time.deltaTime);
 
-        // Position the camera behind target at a distance of offset
-        transform.position = player.transform.position - (transform.forward * offset);
-        transform.LookAt(player.transform.position);
+        if (Physics.Raycast(player.transform.position, mCamera.position - player.transform.position, out hit, offset, whatIsEnvironment))
+        {
+            float offsetChange = hit.distance;
+
+            // Position the camera behind target at a distance of offset but not clipping environment
+            transform.position = player.transform.position - (transform.forward * (offsetChange - 0.5f));
+            transform.LookAt(player.transform.position);
+        }
+        else
+        {
+            // Position the camera behind target at a distance of offset
+            transform.position = player.transform.position - (transform.forward * offset);
+            transform.LookAt(player.transform.position);
+        }
     }
 }
